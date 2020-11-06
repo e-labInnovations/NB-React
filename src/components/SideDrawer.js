@@ -1,8 +1,8 @@
 import React from 'react';
-import { IonMenu, 
-  IonContent, 
-  IonList, 
-  IonItem, 
+import { IonMenu,
+  IonContent,
+  IonList,
+  IonItem,
   IonLabel,
   IonIcon,
   IonRouterOutlet,
@@ -11,14 +11,14 @@ import { IonMenu,
 import { newspaper, square, people } from 'ionicons/icons';
 import './SideDrawer.css'
 
-const MenuExample = () => (
+const SideMenu = () => (
   <>
     <IonMenu side="start" contentId="main">
       <IonContent>
-        <div class="ion-text-center ion-padding">
+        <div className="ion-text-center ion-padding">
           {false ? (
             <>
-              <img src="http://placehold.it/300x300" class="custom-avatar" alt="name"/>
+              <img src="http://placehold.it/300x300" className="custom-avatar" alt="name"/>
               <h2>Name</h2>
               <p>Number / Mail</p>
             </>
@@ -46,4 +46,4 @@ const MenuExample = () => (
   </>
 );
 
-export default MenuExample;
+export default SideMenu;

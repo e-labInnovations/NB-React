@@ -6,7 +6,9 @@ import "@ionic/react/css/core.css";
 import "./styles.css";
 import "./variables.css";
 import Home from "./pages/Home";
-import Login from "./pages/Login"
+import Login from "./pages/Login";
+import CreateAccount from "./pages/CreateAccount";
+import HomeMain from './pages/HomeMain'; 
 
 /* Basic CSS for apps built with Ionic */
 import '@ionic/react/css/normalize.css';
@@ -26,9 +28,11 @@ export default function App() {
     <IonApp>
       <IonReactRouter>
         <IonRouterOutlet>
-          <Route path="/home" component={Home} />
+          <Route path="/home" component={HomeMain} exact={true} />
+          <Route path="/home/:areaId" component={Home} />
           <Route path="/" render={() => <Redirect to="/home" />} exact={true} />
           <Route path="/login" component={Login} />
+          <Route path="/create-account" component={CreateAccount} />
         </IonRouterOutlet>
       </IonReactRouter>
     </IonApp>

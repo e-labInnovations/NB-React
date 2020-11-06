@@ -10,7 +10,8 @@ import {
   IonMenuButton
 } from "@ionic/react";
 
-const Customers = () => {
+const Customers = ({match}) => {
+  const areaId = match.params.areaId;
 
   return (
     <IonPage>
@@ -29,6 +30,7 @@ const Customers = () => {
         >
           NEXT PAGE
         </IonButton>
+        {areaId}
       </IonContent>
     </IonPage>
   );
