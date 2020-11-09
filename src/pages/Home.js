@@ -14,11 +14,13 @@ import Products from './Products';
 import HomeMain from './HomeMain';
 import SideMenu from '../components/SideDrawer'
 
-export default function Home({match}) {
+export default function Home(props) {
+  const match = props.match
   const areaId = match.params.areaId;
+
   return (
     <>
-    <SideMenu />
+    <SideMenu {...props} />
     <IonTabs>
       <IonRouterOutlet id="main">
         <Route path="/home/:areaId/customers" component={Customers} exact={true} />

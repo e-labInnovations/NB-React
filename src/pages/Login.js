@@ -11,16 +11,26 @@ import { IonContent,
   IonItem, 
   IonLabel,
   IonInput,
-  IonButton
+  IonButton,
+  IonAlert
   } from '@ionic/react';
+  import firebase from '../Firebase';
 
-const Login = () => {
+const Login = (props) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showErrorAlert, setShowErrorAlert] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
-  const handleLogin = () => {
-    alert("Login")
-  }
+  async function handleLogin() {
+		try {
+			await firebase.login(email, password)
+			props.history.replace('/')
+		} catch(error) {
+			setErrorMessage(error.message);
+      setShowErrorAlert(true);
+		}
+	}
   
   return (
     <IonPage>
@@ -55,6 +65,14 @@ const Login = () => {
             </IonButton>
           </IonCardContent>
         </IonCard>
+
+        <IonAlert
+          isOpen={showErrorAlert}
+          onDidDismiss={() => setShowErrorAlert(false)}
+          header={'Error'}
+          message={errorMessage}
+          buttons={['OK']}
+        />
       </IonContent>
     </IonPage>
   );

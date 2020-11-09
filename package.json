@@ -10,6 +10,8 @@
   "dependencies": {
     "@ionic/react": "5.3.3",
     "@ionic/react-router": "5.3.3",
+    "axios": "^0.21.0",
+    "firebase": "^8.0.1",
     "ionicons": "^5.2.3",
     "react": "16.13.1",
     "react-dom": "16.13.1",

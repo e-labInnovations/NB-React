@@ -11,17 +11,38 @@ import { IonContent,
   IonItem, 
   IonLabel,
   IonInput,
-  IonButton
+  IonButton,
+  IonAlert
   } from '@ionic/react';
+  import firebase from '../Firebase';
 
-const CreateAccount = () => {
+const CreateAccount = (props) => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [phone, setPhone] = useState('+91');
+  const [showErrorAlert, setShowErrorAlert] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
-  const handleCreateAccount = () => {
-    alert("Login")
+  async function handleCreateAccount() {
+    if (phone === '' || name === '') {
+      setErrorMessage('Complete all fields ');
+      setShowErrorAlert(true)
+    } else {
+      if(!phone.includes('+91')){
+        setPhone('+91' + phone)
+      }
+      try {
+        await firebase.register(name, email, password, phone);
+        await firebase.updateProfile(name, phone);
+        props.history.replace('/');
+      } catch (error) {
+        setErrorMessage(error.message);
+        setShowErrorAlert(true)
+      }
+    }
   }
+
   
   return (
     <IonPage>
@@ -49,7 +70,12 @@ const CreateAccount = () => {
             
             <IonItem>
               <IonLabel position="floating">Password</IonLabel>
-              <IonInput value={password} type="password" onIonChange={e => setPassword(e.detail.value)} clearInput enterkeyhint="done"></IonInput>
+              <IonInput value={password} type="password" onIonChange={e => setPassword(e.detail.value)} clearInput enterkeyhint="next"></IonInput>
+            </IonItem>
+
+            <IonItem>
+              <IonLabel position="floating">Phone</IonLabel>
+              <IonInput value={phone} type="tel" onIonChange={e => setPhone(e.detail.value)} clearInput autocomplete="tel" enterkeyhint="done" inputmode="tel"></IonInput>
             </IonItem>
             
             <IonButton expand="full" shape="round" onClick={handleCreateAccount}>
@@ -61,6 +87,14 @@ const CreateAccount = () => {
             </IonButton>
           </IonCardContent>
         </IonCard>
+
+        <IonAlert
+          isOpen={showErrorAlert}
+          onDidDismiss={() => setShowErrorAlert(false)}
+          header={'Error'}
+          message={errorMessage}
+          buttons={['OK']}
+        />
       </IonContent>
     </IonPage>
   );
